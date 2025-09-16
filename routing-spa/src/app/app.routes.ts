@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { CanMatchFn, RedirectCommand, Router, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { routes as UserRoutes } from './routes/user.routes';
 import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import {
   resolveTitle,
@@ -26,8 +25,8 @@ export const routes: Routes = [
   {
     path: 'users/:userId',
     component: UserTasksComponent,
+    loadChildren: () => import('./routes/user.routes').then(mod => mod.routes),
     canMatch: [dummyCanMatch],
-    children: UserRoutes,
     data: {
       message: 'Hello!',
     },
